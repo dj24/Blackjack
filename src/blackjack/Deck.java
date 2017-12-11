@@ -14,33 +14,7 @@ import java.util.ArrayList;
 public class Deck {
 
     public enum Rank{
-        TWO(2){
-            public Rank getPrevious() { return ACE; }
-        },THREE(3){
-            public Rank getPrevious() { return TWO; }
-        },FOUR(4){
-            public Rank getPrevious() { return THREE; }
-        },FIVE(5){
-            public Rank getPrevious() { return FOUR; }
-        },SIX(6){
-            public Rank getPrevious() { return FIVE; }
-        },SEVEN(7){
-            public Rank getPrevious() { return SIX; }
-        },EIGHT(8){
-            public Rank getPrevious() { return SEVEN; }
-        },NINE(9){
-            public Rank getPrevious() { return EIGHT; }
-        },TEN(10){
-            public Rank getPrevious() { return NINE; }
-        },JACK(10){
-            public Rank getPrevious() { return TEN; }
-        },QUEEN(10){
-            public Rank getPrevious() { return JACK; }
-        },KING(10){
-            public Rank getPrevious() { return QUEEN; }
-        },ACE(11){
-            public Rank getPrevious() { return KING; }
-        };
+        TWO(2),THREE(3),FOUR(4),FIVE(5),SIX(6),SEVEN(7),EIGHT(8),NINE(9),TEN(10),JACK(10),QUEEN(10),KING(10),ACE(11);
 
         private final int value;
 
@@ -51,6 +25,8 @@ public class Deck {
         int getValue(){
             return value;
         }
+        
+        
     }
     
     public enum Suit{

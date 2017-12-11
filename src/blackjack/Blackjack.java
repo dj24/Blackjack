@@ -4,18 +4,16 @@
  * and open the template in the editor.
  */
 package blackjack;
- * @author User
- */
+ 
+
 public class Blackjack {
 
     
     public static void main(String[] args) {
         
-        Card card = new Card();
-        Suit;
-        Suit = card.suit();
+        Card.Rank rank = Card.Rank.TWO;
         
-        card.getValue();
+        System.out.println(rank.getValue());
     }
     
 }

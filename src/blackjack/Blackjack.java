@@ -11,9 +11,9 @@ public class Blackjack {
     
     public static void main(String[] args) {
         
-        Card.Rank rank = Card.Rank.TWO;
+        Card.Rank rank = Card.Rank.THREE;
         
-        System.out.println(rank.getValue());
+        System.out.println(rank.getPrevious());
     }
     
 }

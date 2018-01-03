@@ -11,33 +11,8 @@ package blackjack;
  */
 public class Card {
     enum Rank{
-        TWO(2){
-            public Rank getPrevious() { return ACE; }
-        },THREE(3){
-            public Rank getPrevious() { return ACE; }
-        },FOUR(4){
-            public Rank getPrevious() { return ACE; }
-        },FIVE(5){
-            public Rank getPrevious() { return ACE; }
-        },SIX(6){
-            public Rank getPrevious() { return ACE; }
-        },SEVEN(7){
-            public Rank getPrevious() { return ACE; }
-        },EIGHT(8){
-            public Rank getPrevious() { return ACE; }
-        },NINE(9){
-            public Rank getPrevious() { return ACE; }
-        },TEN(10){
-            public Rank getPrevious() { return ACE; }
-        },JACK(10){
-            public Rank getPrevious() { return ACE; }
-        },QUEEN(10){
-            public Rank getPrevious() { return ACE; }
-        },KING(10){
-            public Rank getPrevious() { return ACE; }
-        },ACE(11){
-            public Rank getPrevious() { return ACE; }
-        };
+        TWO(2),THREE(3),FOUR(4),FIVE(5),SIX(6),SEVEN(7),EIGHT(8),NINE(9),TEN(10),JACK(10),QUEEN(10),KING(10),ACE(11);
+        
         
         //public abstract Rank getPrevious();
         
@@ -50,6 +25,11 @@ public class Card {
         int getValue(){
             return value;
         }
+        public Rank getPrevious() {
+        return this.ordinal() < Rank.values().length - 1 ? Rank.values()[this.ordinal()-1] 
+        : null;
+   }
+        
     }
     
     enum Suit{

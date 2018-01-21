@@ -5,15 +5,16 @@
  */
 package blackjack;
  
+import static blackjack.Card.Rank.isBlackJack;
+
 
 public class Blackjack {
 
     
     public static void main(String[] args) {
+        Card card = new Card();
+        System.out.println(isBlackJack(Card.Rank.ACE,Card.Rank.ACE));
         
-        Card.Rank rank = Card.Rank.THREE;
-        
-        System.out.println(rank.getPrevious());
     }
     
 }

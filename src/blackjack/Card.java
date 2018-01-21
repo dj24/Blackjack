@@ -11,10 +11,8 @@ package blackjack;
  */
 public class Card {
     enum Rank{
-        TWO(2),THREE(3),FOUR(4),FIVE(5),SIX(6),SEVEN(7),EIGHT(8),NINE(9),TEN(10),JACK(10),QUEEN(10),KING(10),ACE(11);
-        
-        
-        //public abstract Rank getPrevious();
+        TWO(2),THREE(3),FOUR(4),FIVE(5),SIX(6),SEVEN(7),EIGHT(8),
+        NINE(9),TEN(10),JACK(10),QUEEN(10),KING(10),ACE(11);
         
         private final int value;
         
@@ -28,7 +26,11 @@ public class Card {
         public Rank getPrevious() {
         return this.ordinal() < Rank.values().length - 1 ? Rank.values()[this.ordinal()-1] 
         : null;
-   }
+        }
+        
+        static boolean isBlackJack(Rank a, Rank b){
+            return a.getValue() + b.getValue() == 21;
+        }
         
     }
     

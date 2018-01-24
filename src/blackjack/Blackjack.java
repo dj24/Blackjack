@@ -16,10 +16,13 @@ public class Blackjack {
     public static void main(String[] args) {
         Deck deck = new Deck();
         
-        deck.shuffle();
+        //deck.shuffle();
+        Card card1 = new Card(Card.Suit.SPADES,Card.Rank.ACE);
+        Card card2 = new Card(Card.Suit.CLUBS,Card.Rank.QUEEN);
         
-        
-        System.out.println(deck.toString());
+        Card.RankComparator comp = new Card.RankComparator();
+        comp.compare(card1, card2);
+        System.out.println(comp.compare(card1, card2));
         
     }
     

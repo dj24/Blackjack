@@ -18,8 +18,8 @@ public class Deck {
     
     Deck(){
         List<Card> newDeck= new ArrayList<Card>();
-        for(Suit suit : Suit.values()){
-            for(Rank rank : Rank.values())
+        for(Card.Suit suit : Card.Suit.values()){
+            for(Card.Rank rank : Card.Rank.values())
                 newDeck.add(new Card(suit,rank));
         }
         deck = newDeck;

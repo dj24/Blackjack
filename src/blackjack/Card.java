@@ -61,10 +61,22 @@ public class Card implements Comparable<Card>{
     
     @Override
     public int compareTo(Card card) {
-        return (this.rank.ordinal() - card.rank.ordinal());
+        int cardComp = this.suit.compareTo(card.suit);
+        if (cardComp == 0) {
+            cardComp = this.rank.compareTo(card.rank);
+        }
+        return cardComp;
     }
     
-    public static class RankComparator implements Comparator<Card>{
+    public static class compareAscending implements Comparator<Card>{
+        @Override
+        public int compare(Card c1, Card c2) {
+             return (c1.rank.ordinal() - c2.rank.ordinal());
+        }
+    };
+    
+    public static class compareSuit implements Comparator<Card>{
+        @Override
         public int compare(Card c1, Card c2) {
             return c1.compareTo(c2);
         }

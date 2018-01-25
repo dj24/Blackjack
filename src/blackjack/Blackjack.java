@@ -20,9 +20,7 @@ public class Blackjack {
         Card card1 = new Card(Card.Suit.SPADES,Card.Rank.ACE);
         Card card2 = new Card(Card.Suit.CLUBS,Card.Rank.QUEEN);
         
-        Card.RankComparator comp = new Card.RankComparator();
-        comp.compare(card1, card2);
-        System.out.println(comp.compare(card1, card2));
+        System.out.println();
         
     }
     

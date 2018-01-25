@@ -6,6 +6,7 @@
 package blackjack;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,10 +15,10 @@ import java.util.List;
  * @author User
  */
 public class Deck {
-    private List<Card> deck;
+    private ArrayList<Card> deck;
     
     Deck(){
-        List<Card> newDeck= new ArrayList<Card>();
+        ArrayList<Card> newDeck= new ArrayList<Card>();
         for(Card.Suit suit : Card.Suit.values()){
             for(Card.Rank rank : Card.Rank.values())
                 newDeck.add(new Card(suit,rank));

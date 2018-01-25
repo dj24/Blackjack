@@ -20,7 +20,7 @@ public class Hand implements Serializable, Iterable{
     ArrayList<Card> hand = new ArrayList<>();
     ArrayList<Integer> values = new ArrayList<>();
     private int[] rankCount;
-    private int handValue;
+    private int handValue = 0;
     
     public Hand() {
         this.rankCount = new int[13];
@@ -51,19 +51,16 @@ public class Hand implements Serializable, Iterable{
         return hand.size();
     }
     
-    void duplicateValue(int pos){
-        values.add(values.get(pos));
-    }
+    
+    
     
     void addValue(Card newCard){
-        for(int i : values){
-            if(newCard.getOrdinal() == 13)
-        }
+        
     }
     
     void add(Card card){
         this.hand.add(card);
-        handValue+=
+        increment(card);
     }
     
     void add(Collection<Card> cards){

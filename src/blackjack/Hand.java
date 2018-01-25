@@ -18,6 +18,7 @@ public class Hand implements Serializable, Iterable{
     
     static final long serialVersionUID = 102;
     ArrayList<Card> hand = new ArrayList<>();
+    ArrayList<Integer> values = new ArrayList<>();
     private int[] rankCount;
     private int handValue;
     
@@ -42,8 +43,27 @@ public class Hand implements Serializable, Iterable{
             hand.add((Card)c);
     }
     
+    public ArrayList<Integer> getValues(){
+        return values;
+    }
+    
+    int getSize(){
+        return hand.size();
+    }
+    
+    void duplicateValue(int pos){
+        values.add(values.get(pos));
+    }
+    
+    void addValue(Card newCard){
+        for(int i : values){
+            if(newCard.getOrdinal() == 13)
+        }
+    }
+    
     void add(Card card){
         this.hand.add(card);
+        handValue+=
     }
     
     void add(Collection<Card> cards){
@@ -52,12 +72,15 @@ public class Hand implements Serializable, Iterable{
     }
     
     void add(Hand hand){
-        for(Object c : hand)
+        for(Object c : hand){
             hand.add((Card)c);
+            increment((Card)c);
+        }
     }
     
     boolean remove(Card card){
         if(hand.contains(card)){
+            decrement((Card)card);
             hand.remove(card);
             return true;
         }
@@ -65,23 +88,43 @@ public class Hand implements Serializable, Iterable{
     }
     
     boolean remove (Hand newHand){
-        int removedCards = 0;
+        int removed = 0;
         for(Object newCard : newHand)
             if(hand.contains(newCard)){
-                decrement((Card)newCard);
                 hand.remove(newCard);
-                removedCards++;
-                return true;
+                decrement((Card)newCard);
+                removed++;
             }
+        if(removed == newHand.getSize())
+            return true;
         return false;
-        }
+    }
 
+    public void decrement(Card card){
+        handValue -=card.getRank().getValue();
+        rankCount[card.getOrdinal()]--;
+    }
+    
+    public void increment(Card card){
+        handValue +=card.getRank().getValue();
+        rankCount[card.getOrdinal()]++;
+    }
+    
+    public boolean isOver(int a){
+        
+    }
+    
     @Override
     public Iterator iterator() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public void decrement(Card card){
-        handValue -=card.getRank().getValue();
+    
+    @Override
+    public String toString(){
+        String out = "";
+        for(Card c : hand)
+            out = out.concat(c.toString() + "\n");
+        return out;
     }
     
 }

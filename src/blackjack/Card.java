@@ -29,9 +29,9 @@ public class Card implements Comparable<Card>{
         String getName(){
             return this.name();
         }
-
+        
         public Rank getPrevious() {
-        return this.ordinal() < Rank.values().length - 1 ? Rank.values()[this.ordinal()-1] 
+            return this.ordinal() < Rank.values().length - 1 ? Rank.values()[this.ordinal()-1] 
         : null;
         }
 
@@ -53,6 +53,10 @@ public class Card implements Comparable<Card>{
     
     static int sum(Card a, Card b){
         return a.getRank().getValue() + b.getRank().getValue();
+    }
+    
+    int getOrdinal(){
+        return this.rank.ordinal();
     }
     
     static boolean isBlackJack(Card a, Card b){

@@ -37,6 +37,7 @@ public class Hand implements Serializable, Iterable{
         this.handValue = 0;
         for(Card c : cards)
             hand.add(c);
+        serialise();
     }
     
     public Hand(Hand newHand){
@@ -45,12 +46,13 @@ public class Hand implements Serializable, Iterable{
         this.hand = new ArrayList();
         for(Object c : newHand)
             hand.add((Card)c);
+        serialise();
     }
-    
+    /*
     public ArrayList<Integer> getValues(){
         return values;
     }
-    
+    */
     int getSize(){
         return hand.size();
     }
@@ -115,7 +117,7 @@ public class Hand implements Serializable, Iterable{
         return 2<a;
     }
     
-        public void serialize() {
+        public void serialise() {
         
         try {
             FileOutputStream fos = new FileOutputStream("hand.ser");
@@ -136,7 +138,7 @@ public class Hand implements Serializable, Iterable{
    }
     
    
-    public Hand deserialize() {
+    public Hand deserialise() {
         Hand serialise = null;
 
 	try (ObjectInputStream o

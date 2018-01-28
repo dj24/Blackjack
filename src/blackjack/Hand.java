@@ -5,6 +5,10 @@
  */
 package blackjack;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -87,8 +91,8 @@ public class Hand implements Serializable, Iterable{
     boolean remove (Hand newHand){
         int removed = 0;
         for(Object newCard : newHand)
-            if(hand.contains(newCard)){
-                hand.remove(newCard);
+            if(hand.contains((Card)newCard)){
+                hand.remove((Card)newCard);
                 decrement((Card)newCard);
                 removed++;
             }
@@ -108,12 +112,64 @@ public class Hand implements Serializable, Iterable{
     }
     
     public boolean isOver(int a){
+        return 2<a;
+    }
+    
+        public void serialize() {
         
+        try {
+            FileOutputStream fos = new FileOutputStream("hand.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fos);
+
+            ArrayList<Card> serialise = new ArrayList<>();
+            Iterator it = hand.iterator();
+            while(it.hasNext()) {
+                Card card = (Card) it.next();
+                serialise.add(card);
+              }
+
+            out.writeObject(this);
+            out.close();
+        }
+        catch (Exception ex) {
+        }
+   }
+    
+   
+    public Hand deserialize() {
+        Hand serialise = null;
+
+	try (ObjectInputStream o
+		= new ObjectInputStream(new FileInputStream("hand.ser"))){
+
+            serialise = (Hand)o.readObject();
+            
+	} catch (Exception ex) {
+	}     
+        
+	return serialise;
     }
     
     @Override
-    public Iterator iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Iterator<Card> iterator() {
+        Iterator<Card> it = new Iterator<Card>() {
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                if (index < hand.size())
+                    return true;
+                return false;
+            }
+            
+            @Override
+            public Card next() {
+                if (hasNext())
+                    return (Card) hand.toArray()[index++]; 
+                return null;
+            }
+        };
+        return it;
     }
     
     @Override

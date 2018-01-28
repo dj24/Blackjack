@@ -14,13 +14,11 @@ public class Blackjack {
 
     
     public static void main(String[] args) {
-        Deck deck = new Deck();
-        
-        //deck.shuffle();
-        Card card1 = new Card(Card.Suit.SPADES,Card.Rank.ACE);
-        Card card2 = new Card(Card.Suit.CLUBS,Card.Rank.QUEEN);
-        
-        System.out.println();
+        Card card = new Card(Card.Suit.CLUBS,Card.Rank.ACE);
+        Card a[] = {card};
+        Hand hand = new Hand(a);
+        Hand hand2 = new Hand(hand.deserialise());
+        System.out.println(hand2.toString());
         
     }
     

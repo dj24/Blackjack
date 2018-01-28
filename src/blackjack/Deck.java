@@ -55,7 +55,7 @@ public class Deck implements Serializable, Iterable{
             ObjectOutputStream out = new ObjectOutputStream(fos);
 
             ArrayList<Card> serialise = new ArrayList<>();
-            Iterator it = hand.iterator();
+            Iterator it = deck.iterator();
             while(it.hasNext()) {
                 Card card = (Card) it.next();
                 serialise.add(card);

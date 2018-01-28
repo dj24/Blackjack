@@ -5,8 +5,6 @@
  */
 package blackjack;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +18,7 @@ public class Hand implements Serializable, Iterable{
     
     static final long serialVersionUID = 102;
     ArrayList<Card> hand = new ArrayList<>();
-    //ArrayList<Integer> values = new ArrayList<>();
+    ArrayList<Integer> values = new ArrayList<>();
     private int[] rankCount;
     private int handValue = 0;
     
@@ -44,11 +42,11 @@ public class Hand implements Serializable, Iterable{
         for(Object c : newHand)
             hand.add((Card)c);
     }
-    /*
+    
     public ArrayList<Integer> getValues(){
         return values;
     }
-    */
+    
     int getSize(){
         return hand.size();
     }
@@ -89,8 +87,8 @@ public class Hand implements Serializable, Iterable{
     boolean remove (Hand newHand){
         int removed = 0;
         for(Object newCard : newHand)
-            if(hand.contains((Card)newCard)){
-                hand.remove((Card)newCard);
+            if(hand.contains(newCard)){
+                hand.remove(newCard);
                 decrement((Card)newCard);
                 removed++;
             }
@@ -98,24 +96,7 @@ public class Hand implements Serializable, Iterable{
             return true;
         return false;
     }
-    
-    public void serialise(){
-        try {
-            FileOutputStream fos = new FileOutputStream("hand.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fos);
-            ArrayList<Card> serialise = new ArrayList<>();
-            Iterator it = hand.iterator();
-            while(it.hasNext()) {
-                Card card = (Card) it.next();
-                serialise.add(card);
-            }
-            out.writeObject(this);
-            out.close();
-        }
-        catch(Exception ex){
-        }
-}
-    
+
     public void decrement(Card card){
         handValue -=card.getRank().getValue();
         rankCount[card.getOrdinal()]--;
@@ -127,7 +108,7 @@ public class Hand implements Serializable, Iterable{
     }
     
     public boolean isOver(int a){
-        return 2>a;
+        
     }
     
     @Override

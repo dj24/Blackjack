@@ -42,7 +42,11 @@ public class BasicPlayer implements Player{
     };
 
     public boolean hit(){
-        return hand.getValue() < 17;
+        if(hand.getValue() < 17){
+            System.out.println("HIT");
+            return true;
+        }
+        return false;
     };
 
     public void takeCard(Card c){

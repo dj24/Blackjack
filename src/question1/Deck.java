@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package blackjack;
+package question1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,7 +25,7 @@ public class Deck implements Serializable, Iterable{
     static final long serialVersionUID = 112;
     private ArrayList<Card> deck;
     
-    Deck(){
+    public Deck(){
         ArrayList<Card> newDeck= new ArrayList<>();
         for(Card.Suit suit : Card.Suit.values()){
             for(Card.Rank rank : Card.Rank.values())
@@ -35,7 +35,7 @@ public class Deck implements Serializable, Iterable{
         serialise();
     }
     
-    final void newDeck(){
+    public final void newDeck(){
         ArrayList<Card> newDeck= new ArrayList<>();
         for(Card.Suit suit : Card.Suit.values()){
             for(Card.Rank rank : Card.Rank.values())
@@ -64,7 +64,7 @@ public class Deck implements Serializable, Iterable{
         return dealt;
     }
     
-    void shuffle(){
+    public void shuffle(){
         Collections.shuffle(deck);
     }
     

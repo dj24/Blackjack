@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package blackjack;
+package question1;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -58,32 +58,32 @@ public class Hand implements Serializable, Iterable{
         return hand.size();
     }
     
-    
-    
-    
-    void addValue(Card newCard){
-        
+    public int getValue(){
+        int sum = 0;
+        for(Card c : hand){
+            sum += c.getRank().getValue();
+        }
+        return sum;
     }
-    
-    void add(Card card){
+    public void add(Card card){
         this.hand.add(card);
         increment(card);
         
     }
     
-    void add(Collection<Card> cards){
+    public void add(Collection<Card> cards){
         for(Card c : cards)
             hand.add(c);
     }
     
-    void add(Hand hand){
+    public void add(Hand hand){
         for(Object c : hand){
             hand.add((Card)c);
             increment((Card)c);
         }
     }
     
-    boolean remove(Card card){
+    public boolean remove(Card card){
         if(hand.contains(card)){
             decrement((Card)card);
             hand.remove(card);
@@ -92,7 +92,7 @@ public class Hand implements Serializable, Iterable{
         return false;
     }
     
-    boolean remove (Hand newHand){
+    public boolean remove (Hand newHand){
         int removed = 0;
         for(Object newCard : newHand)
             if(hand.contains((Card)newCard)){

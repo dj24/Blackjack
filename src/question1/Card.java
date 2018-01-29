@@ -1,5 +1,5 @@
 
-package blackjack;
+package question1;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -9,11 +9,11 @@ import java.util.Comparator;
 
 public class Card implements Comparable<Card>, Serializable{
     static final long serialVersionUID = 111;
-    enum Suit{
+    public enum Suit{
         CLUBS,DIAMONDS,HEARTS,SPADES;
     }
 
-    enum Rank{
+    public enum Rank{
         TWO(2),THREE(3),FOUR(4),FIVE(5),SIX(6),SEVEN(7),EIGHT(8),
         NINE(9),TEN(10),JACK(10),QUEEN(10),KING(10),ACE(11);
 
@@ -23,11 +23,11 @@ public class Card implements Comparable<Card>, Serializable{
             this.value = value;
         }
 
-        int getValue(){
+        public int getValue(){
             return value;
         }
 
-        String getName(){
+        public String getName(){
             return this.name();
         }
         
@@ -41,7 +41,7 @@ public class Card implements Comparable<Card>, Serializable{
     private Suit suit;
     
    
-    Card(Suit suit, Rank rank) {
+    public Card(Suit suit, Rank rank) {
       this.suit = suit;
       this.rank = rank;
     }
@@ -52,15 +52,15 @@ public class Card implements Comparable<Card>, Serializable{
     @Override
     public String toString() { return rank + " of " + suit; }
     
-    static int sum(Card a, Card b){
+    public static int sum(Card a, Card b){
         return a.getRank().getValue() + b.getRank().getValue();
     }
     
-    int getOrdinal(){
+    public int getOrdinal(){
         return this.rank.ordinal();
     }
     
-    static boolean isBlackJack(Card a, Card b){
+    public static boolean isBlackJack(Card a, Card b){
         return sum(a,b) == 21;
     }
     

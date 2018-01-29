@@ -7,6 +7,7 @@ package blackjack;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -21,15 +22,31 @@ import java.util.List;
  * @author User
  */
 public class Deck implements Serializable, Iterable{
+    static final long serialVersionUID = 112;
     private ArrayList<Card> deck;
     
     Deck(){
-        ArrayList<Card> newDeck= new ArrayList<Card>();
+        ArrayList<Card> newDeck= new ArrayList<>();
         for(Card.Suit suit : Card.Suit.values()){
             for(Card.Rank rank : Card.Rank.values())
                 newDeck.add(new Card(suit,rank));
         }
         deck = newDeck;
+        serialise();
+    }
+    
+    final void newDeck(){
+        ArrayList<Card> newDeck= new ArrayList<>();
+        for(Card.Suit suit : Card.Suit.values()){
+            for(Card.Rank rank : Card.Rank.values())
+                newDeck.add(new Card(suit,rank));
+        }
+        deck = newDeck;
+        serialise();
+    }
+    
+    public int size(){
+        return deck.size();
     }
     
     @Override
@@ -38,6 +55,13 @@ public class Deck implements Serializable, Iterable{
         for(Card c : deck)
             out = out.concat(c.toString() + "\n");
         return out;
+    }
+    
+    public Card deal(){
+        Card dealt = deck.get(0);
+        deck.remove(0);
+        //System.out.println(dealt.toString());
+        return dealt;
     }
     
     void shuffle(){
@@ -51,36 +75,49 @@ public class Deck implements Serializable, Iterable{
         public void serialise() {
         
         try {
-            FileOutputStream fos = new FileOutputStream("hand.ser");
+            FileOutputStream fos = new FileOutputStream("deck.ser");
             ObjectOutputStream out = new ObjectOutputStream(fos);
 
-            ArrayList<Card> serialise = new ArrayList<>();
-            Iterator it = deck.iterator();
-            while(it.hasNext()) {
-                Card card = (Card) it.next();
-                serialise.add(card);
-              }
+            
 
-            out.writeObject(this);
+            out.writeObject(deck);
+            
             out.close();
+            fos.close();
         }
-        catch (Exception ex) {
+         catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
         }
    }
     
    
-    public Hand deserialise() {
-        Hand serialise = null;
-
-	try (ObjectInputStream o
-		= new ObjectInputStream(new FileInputStream("hand.ser"))){
-
-            serialise = (Hand)o.readObject();
-            
-	} catch (Exception ex) {
-	}     
+    public void deserialise() {
+        Deck deserialise = null;
         
-	return serialise;
+	try {
+            FileInputStream fis = new FileInputStream("deck.ser");
+            ObjectInputStream in = new ObjectInputStream(fis);
+
+            deserialise = (Deck)in.readObject();
+            
+            in.close();
+            fis.close();
+            
+            System.out.println("Deck has been deserialized ");
+            System.out.println(deserialise);
+            
+	} 
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
+        }
+         
+        catch(ClassNotFoundException ex)
+        {
+            System.out.println("ClassNotFoundException is caught");
+        }     
+        
     }
     @Override
     public Iterator<Card> iterator() {

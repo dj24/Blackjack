@@ -18,11 +18,13 @@ public class Blackjack {
         Card a[] = {card};
         Hand hand = new Hand(a);
         hand.add(new Card(Card.Suit.CLUBS,Card.Rank.KING));
-        
-        
         Hand hand2 = new Hand(hand);
-        hand.deserialise();
-        System.out.println(hand.toString());
+        
+        Deck deck = new Deck();
+        System.out.println(deck.size());
+        
+        deck.deal();
+        System.out.println(deck.size());
         
     }
     

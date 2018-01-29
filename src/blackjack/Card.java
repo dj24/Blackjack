@@ -8,7 +8,7 @@ import java.util.Comparator;
 
 
 public class Card implements Comparable<Card>, Serializable{
-    
+    static final long serialVersionUID = 111;
     enum Suit{
         CLUBS,DIAMONDS,HEARTS,SPADES;
     }

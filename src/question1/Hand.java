@@ -49,22 +49,15 @@ public class Hand implements Serializable, Iterable{
             hand.add((Card)c);
         serialise();
     }
-    /*
-    public ArrayList<Integer> getValues(){
-        return values;
-    }
-    */
-    int getSize(){
+   
+    public int getSize(){
         return hand.size();
     }
     
     public int getValue(){
-        int sum = 0;
-        for(Card c : hand){
-            sum += c.getRank().getValue();
-        }
-        return sum;
+        return handValue;
     }
+    
     public void add(Card card){
         this.hand.add(card);
         increment(card);

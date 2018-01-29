@@ -14,10 +14,17 @@ import question1.*;
  */
 public class BlackjackDealer implements Dealer{
     
-    private Deck deck = new Deck();
+    private Deck deck;
     private Hand hand;
-    int pot = 0;
+    int pot;
     BlackjackTable table;
+    
+    BlackjackDealer(){
+        this.table = new BlackjackTable();
+        this.pot = 0;
+        this.hand = new Hand();
+        this.deck = new Deck();
+    }
     
     public void assignPlayers(List<Player> p){
         table.addPlayers(p);
@@ -46,12 +53,22 @@ public class BlackjackDealer implements Dealer{
             deck.shuffle();
             p.newDeck();
         }
+        boolean checkHit;
+            do{
+                //check if player wants to take card
+                checkHit = p.hit();
+                if(checkHit == true)
+                    p.takeCard(deck.deal());
+            }while(checkHit == true);
         return p.getHand().getValue();
     };
 
   
     public int playDealer(){
-        return 0;
+        while(hand.getValue() < 17){
+            hand.add(deck.deal());
+        }
+        return hand.getValue();
     };
    
     public int scoreHand(Hand h){

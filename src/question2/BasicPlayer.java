@@ -16,6 +16,7 @@ public class BasicPlayer implements Player{
     
     private Hand hand;
     private int balance;
+    private final int BET = 10;
     
     public BasicPlayer(){
         balance = 200;
@@ -29,11 +30,11 @@ public class BasicPlayer implements Player{
     };
     
     public int makeBet(){
-        return 0;
+        return BET;
     };
     
     public int getBet(){
-        return 0;
+        return BET;
     };
 
     public int getBalance(){
@@ -41,7 +42,7 @@ public class BasicPlayer implements Player{
     };
 
     public boolean hit(){
-        return false;
+        return hand.getValue() < 17;
     };
 
     public void takeCard(Card c){
@@ -49,19 +50,20 @@ public class BasicPlayer implements Player{
     };
 
     public boolean settleBet(int p){
-        return false;
+        balance += p;
+        return balance > 0;
     };
 
     public int getHandTotal(){
-        return 0;
+        return hand.getValue();
     };
 
     public boolean blackjack(){
-        return false;
+        return (hand.getValue() == 21 && hand.getSize() == 2);
     };
 
     public boolean isBust(){
-        return false;
+        return (hand.getValue() > 21);
     };
 
     public Hand getHand(){
@@ -77,6 +79,6 @@ public class BasicPlayer implements Player{
     };
 
     public  void newDeck(){
-        
+        System.out.println("New deck created");
     };
 }

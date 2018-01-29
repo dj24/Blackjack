@@ -1,12 +1,13 @@
 
 package blackjack;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 
 
 
-public class Card implements Comparable<Card>{
+public class Card implements Comparable<Card>, Serializable{
     
     enum Suit{
         CLUBS,DIAMONDS,HEARTS,SPADES;

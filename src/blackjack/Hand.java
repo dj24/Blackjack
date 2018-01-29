@@ -68,6 +68,7 @@ public class Hand implements Serializable, Iterable{
     void add(Card card){
         this.hand.add(card);
         increment(card);
+        
     }
     
     void add(Collection<Card> cards){

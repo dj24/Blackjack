@@ -17,8 +17,9 @@ public class Blackjack {
         Card card = new Card(Card.Suit.CLUBS,Card.Rank.ACE);
         Card a[] = {card};
         Hand hand = new Hand(a);
-        Hand hand2 = new Hand(hand.deserialise());
-        System.out.println(hand2.toString());
+        hand.add(card);
+        hand.deserialise();
+        //System.out.println(hand2.toString());
         
     }
     

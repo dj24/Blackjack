@@ -7,6 +7,7 @@ package blackjack;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -117,39 +118,54 @@ public class Hand implements Serializable, Iterable{
         return 2<a;
     }
     
-        public void serialise() {
+    public void serialise() {
         
         try {
             FileOutputStream fos = new FileOutputStream("hand.ser");
             ObjectOutputStream out = new ObjectOutputStream(fos);
 
-            ArrayList<Card> serialise = new ArrayList<>();
-            Iterator it = hand.iterator();
-            while(it.hasNext()) {
-                Card card = (Card) it.next();
+            Hand serialise = new Hand();
+            for (Card card : hand) {
                 serialise.add(card);
-              }
+            }
 
-            out.writeObject(this);
+            out.writeObject(serialise);
             out.close();
+            fos.close();
         }
-        catch (Exception ex) {
+         catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
         }
    }
     
    
-    public Hand deserialise() {
-        Hand serialise = null;
-
-	try (ObjectInputStream o
-		= new ObjectInputStream(new FileInputStream("hand.ser"))){
-
-            serialise = (Hand)o.readObject();
-            
-	} catch (Exception ex) {
-	}     
+    public void deserialise() {
+        Hand deserialise = null;
         
-	return serialise;
+	try {
+            FileInputStream fis = new FileInputStream("hand.ser");
+            ObjectInputStream in = new ObjectInputStream(fis);
+
+            deserialise = (Hand)in.readObject();
+            
+            in.close();
+            fis.close();
+            
+            System.out.println("Object has been deserialized ");
+            System.out.println(deserialise);
+            
+	} 
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
+        }
+         
+        catch(ClassNotFoundException ex)
+        {
+            System.out.println("ClassNotFoundException is caught");
+        }     
+        
     }
     
     @Override

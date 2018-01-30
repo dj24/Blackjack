@@ -7,6 +7,7 @@ package question2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import question1.*;
 
 /**
@@ -30,14 +31,14 @@ public class BlackjackTable {
         }
     }
     
-    static void basicGame(int games){
+    static void basicGame(int games,int players){
+        List playerList = new ArrayList();
+        for (int j = 0; j< players;j++){
+            playerList.add(new BasicPlayer());
+        }
         for(int i = 0; i < games; i++){
-            System.out.println("\n========================= NEW HAND =========================\n");
-            List playerList = new ArrayList();
-
-            for (int j = 0; j< 4;j++){
-                playerList.add(new BasicPlayer());
-            }
+            System.out.println("\n========================= NEW HAND #" + (i+1) + "=========================\n");
+            
             BlackjackTable table = new BlackjackTable(playerList);
 
             Dealer dealer = new BlackjackDealer(table);
@@ -49,11 +50,14 @@ public class BlackjackTable {
             //cycle through each player
             for(Object p: playerList){
                 Player currentPlayer = (Player)p;
-                
+                if(currentPlayer.getBalance() <= 0){
+                    playerList.remove(p);
+                    break;
+                }
                 System.out.println("\n------------------------- PLAYER " +
                         (playerList.indexOf(p)+1) +  " -------------------------\n");
-                System.out.println("Balance: £" + currentPlayer.getBalance() + 
-                        " - £" + currentPlayer.getBet());
+                System.out.println("Current bet: £" + currentPlayer.getBet());
+                System.out.println("Balance: £" + currentPlayer.getBalance());
                 
                 System.out.println("\nPlayers hand:");
                 System.out.println(currentPlayer.getHand().toString());
@@ -93,13 +97,13 @@ public class BlackjackTable {
         //player.takeCard(new Card(Card.Suit.CLUBS,Card.Rank.TWO));
         System.out.println(player.getHandTotal());
         */
-        //basicGame(4);
         
-        Hand hand = new Hand();
-        hand.add(new Card(Card.Suit.CLUBS,Card.Rank.FIVE));
-        hand.add(new Card(Card.Suit.CLUBS,Card.Rank.FIVE));
-        hand.add(new Card(Card.Suit.CLUBS,Card.Rank.ACE));
-        System.out.println(hand.getValue());
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter Number of hands:");
+        int hands = scan.nextInt();
+        System.out.println("Enter Number of players:");
+        int players = scan.nextInt();
+        basicGame(hands,players);
     }
     
 }

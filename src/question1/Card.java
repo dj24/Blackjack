@@ -51,7 +51,8 @@ public class Card implements Comparable<Card>, Serializable{
     
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder(rank + " ");
+        StringBuilder str = new StringBuilder(rank.toString().substring(0,1));
+        str.append(rank.toString().substring(1).toLowerCase() + " ");
         switch (suit) {
             case SPADES:
                 str.append((char)'\u2660');

@@ -30,6 +30,7 @@ public class BasicPlayer implements Player{
     };
     
     public int makeBet(){
+        balance -=BET;
         return BET;
     };
     
@@ -63,11 +64,16 @@ public class BasicPlayer implements Player{
     };
 
     public boolean blackjack(){
-        return (hand.getValue() == 21 && hand.getSize() == 2);
+        if(hand.getSize() == 2)
+            return Card.isBlackJack(hand.getCard(0),hand.getCard(1));
+        return false;
     };
 
     public boolean isBust(){
-        return (hand.getValue() > 21);
+        if(hand.getValue() > 21){
+            return true;
+        }
+        return false;
     };
 
     public Hand getHand(){

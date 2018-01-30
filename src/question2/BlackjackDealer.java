@@ -6,6 +6,7 @@
 package question2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import question1.*;
 
@@ -39,8 +40,7 @@ public class BlackjackDealer implements Dealer{
     public void takeBets(){
         List<Player> players = table.getPlayers();
         for(Player p : players){
-            table.setPot(table.getPot() + p.getBet());
-            System.out.println("\nPot total: " + table.getPot());
+            p.makeBet();
         }
     };    
 
@@ -74,14 +74,16 @@ public class BlackjackDealer implements Dealer{
 
   
     public int playDealer(){
-        System.out.println("Dealer hand: " + hand.toString());
+        System.out.println("\n------------------------- DEALER"
+                + " -------------------------\n");
+        System.out.println("Dealer hand: \n" + hand.toString());
         while(hand.getValue() < 17){
             Card newCard = deck.deal();
             hand.add(newCard);
-            System.out.println("HIT(dealer)");
-             System.out.println("Dealt " + newCard.toString() + "\n");
+            System.out.println("HIT");
+            System.out.println("Dealt " + newCard.toString() + "\n");
         }
-        System.out.println("Dealer hand value: " + hand.getValue());
+        System.out.println("Dealer hand value: " + hand.getValue() + "\n");
         return hand.getValue();
     };
    
@@ -91,21 +93,36 @@ public class BlackjackDealer implements Dealer{
 
     public void settleBets(){
         List<Player> players = table.getPlayers();
-        
-        Player winner = players.get(0);
-       
+        int dealerVal = hand.getValue();
         for (Player p:players){
-            if(p.getHandTotal() > winner.getHandTotal())
-            {
-                winner = p;
+            //bust condition
+            if(p.isBust()){
+                p.settleBet(-100);
+                System.out.println("PLAYER " + (players.indexOf(p)+1) + " LOSES " + p.getBet());
             }
-            else{
-                p.settleBet(-p.getBet());
+            //draw condition
+            else if(hand.getSize() == 2 && dealerVal == 21 && p.blackjack() 
+                    || dealerVal == scoreHand(p.getHand()))
+            {
+                p.settleBet(p.getBet());
+                System.out.println("PLAYER " + (players.indexOf(p)+1) +  " WINS " + 0);
+            }
+            //blackjack condition
+            else if(p.blackjack()){
+                p.settleBet(((int)p.getBet()*3));
+                System.out.println("PLAYER " + (players.indexOf(p)+1) + " WINS " + p.getBet()*2);
+            }
+            //player has a better score than dealer
+            else if( (p.getHandTotal() > dealerVal) || (!p.isBust() && dealerVal > 21)){
+                p.settleBet(p.getBet()*2);
+                System.out.println("PLAYER " + (players.indexOf(p)+1) + " WINS " + p.getBet());
+            }
+            //loss condition
+             else{
+                p.settleBet(-100);
+                System.out.println("PLAYER " + (players.indexOf(p)+1) + " LOSES " + p.getBet());
             } 
         }
-        if( winner.getHandTotal() > hand.getValue()){
-            winner.settleBet(table.getPot());
-            System.out.println("\nPLAYER " + (players.indexOf(winner)+1) + " WINS " + table.getPot());
-        }
-    };
+       
+    }
 }

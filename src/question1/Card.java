@@ -50,7 +50,24 @@ public class Card implements Comparable<Card>, Serializable{
     public Suit getSuit() { return suit; }
     
     @Override
-    public String toString() { return rank + " of " + suit; }
+    public String toString() {
+        StringBuilder str = new StringBuilder(rank + " ");
+        switch (suit) {
+            case SPADES:
+                str.append((char)'\u2660');
+                break;
+            case DIAMONDS:
+                str.append((char)'\u2666');
+                break;
+            case CLUBS:
+                str.append((char)'\u2663');
+                break;
+            case HEARTS:
+                str.append((char)'\u2764');
+                break;
+        }
+        return str.toString();
+    }
     
     public static int sum(Card a, Card b){
         return a.getRank().getValue() + b.getRank().getValue();

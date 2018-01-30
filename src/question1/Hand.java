@@ -25,17 +25,17 @@ public class Hand implements Serializable, Iterable{
     ArrayList<Card> hand = new ArrayList<>();
     ArrayList<Integer> values = new ArrayList<>();
     private int[] rankCount;
-    private int handValue = 0;
+    private int value = 0;
     
     public Hand() {
         this.rankCount = new int[13];
-        this.handValue = 0;
+        this.value = 0;
         this.hand = new ArrayList();
     }
     
     public Hand(Card[] cards){
         this.rankCount = new int[13];
-        this.handValue = 0;
+        this.value = 0;
         for(Card c : cards)
             hand.add(c);
         serialise();
@@ -43,7 +43,7 @@ public class Hand implements Serializable, Iterable{
     
     public Hand(Hand newHand){
         this.rankCount = new int[13];
-        this.handValue = 0;
+        this.value = 0;
         this.hand = new ArrayList();
         for(Object c : newHand)
             hand.add((Card)c);
@@ -54,14 +54,27 @@ public class Hand implements Serializable, Iterable{
         return hand.size();
     }
     
+    
     public int getValue(){
-        return handValue;
+        int value = 0;
+        int aces = 0;
+        for(Card c: hand){
+            value += c.getRank().getValue();
+            if(c.getRank() == Card.Rank.ACE)
+                aces++;
+            if(aces > 0 && value > 21)
+                value -=10;
+        }
+        return value;
+    }
+    
+    public Card getCard(int index){
+        return hand.get(index);
     }
     
     public void add(Card card){
         this.hand.add(card);
         increment(card);
-        
     }
     
     public void add(Collection<Card> cards){
@@ -99,12 +112,12 @@ public class Hand implements Serializable, Iterable{
     }
 
     public void decrement(Card card){
-        handValue -=card.getRank().getValue();
+        value -=card.getRank().getValue();
         rankCount[card.getOrdinal()]--;
     }
     
     public void increment(Card card){
-        handValue +=card.getRank().getValue();
+        value +=card.getRank().getValue();
         rankCount[card.getOrdinal()]++;
     }
     

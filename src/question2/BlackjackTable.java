@@ -19,25 +19,55 @@ public class BlackjackTable {
     public static final int MAX_PLAYERS = 8;
     public static final int MIN_BET = 1;
     public static final int MAX_BET = 500;
+    public int pot = 0;
     
     public BlackjackTable(){
         players = new ArrayList();
     }
     
+     public BlackjackTable(Player player){
+        players = new ArrayList();
+        players.add(player);
+    }
+     
     public BlackjackTable(List<Player> newPlayers){
         players = new ArrayList();
         for(Player p : newPlayers){
             players.add(p);
         }
     }
-    
+    static void gameControl(String game){
+        System.out.println("Enter number of games to play:");
+        int games = new Scanner(System.in).nextInt();
+        for(int i = 0; i < games; i ++){
+            System.out.println("\n======================= NEW HAND #" 
+                + (i+1) + " =======================\n");
+            switch(game){
+                case "b":
+                    //basicGame();
+                    break;
+                case "i":
+                    //intermediateGame();
+                    break;
+                case "h":
+                    humanGame();
+                case "a":
+                    //advancedGame();
+                    break;
+                default:
+                    System.out.println("Enter correct character");
+            }
+        }
+        
+    }
     static void basicGame(int games,int players){
         List playerList = new ArrayList();
         for (int j = 0; j< players;j++){
             playerList.add(new BasicPlayer());
         }
         for(int i = 0; i < games; i++){
-            System.out.println("\n======================= NEW HAND #" + (i+1) + " =======================\n");
+            System.out.println("\n======================= NEW HAND #" 
+                    + (i+1) + " =======================\n");
             
             BlackjackTable table = new BlackjackTable(playerList);
 
@@ -55,22 +85,48 @@ public class BlackjackTable {
                     break;
                 }
                 System.out.println("\n------------------------- PLAYER " +
-                        (playerList.indexOf(p)+1) +  " -------------------------\n");
-                System.out.println("Current bet: £" + currentPlayer.getBet());
+                        (playerList.indexOf(p)+1) + 
+                        " -------------------------\n");
                 System.out.println("Balance: £" + currentPlayer.getBalance());
-                
+                System.out.println("Current bet: £" + currentPlayer.getBet());
                 System.out.println("\nPlayers hand:");
                 System.out.println(currentPlayer.getHand().toString());
 
                 dealer.play(currentPlayer);
                 
-                System.out.println("Hand value: " + currentPlayer.getHandTotal());
-
-
+                System.out.println("Hand value: " + 
+                        currentPlayer.getHandTotal());
             }
             dealer.playDealer();
             dealer.settleBets();
         }
+    }
+    
+    static void humanGame(){
+        Player p = new HumanPlayer();
+
+        BlackjackTable table = new BlackjackTable(p);
+
+        Dealer dealer = new BlackjackDealer(table);
+
+        dealer.takeBets();
+
+        dealer.dealFirstCards();
+
+        if(p.getBalance() <= 0){
+            System.out.println("bust");
+        }
+
+        System.out.println("Balance: £" + p.getBalance());
+        System.out.println("Current bet: £" + p.getBet());
+        System.out.println("\nPlayers hand:");
+        System.out.println(p.getHand().toString());
+
+        dealer.play(p);
+
+        System.out.println("Hand value: " + p.getHandTotal());
+        dealer.playDealer();
+        dealer.settleBets();
     }
     
     public void addPlayers(List<Player> newPlayers){
@@ -88,23 +144,16 @@ public class BlackjackTable {
     }
     
     public static void main(String[] args) {
-        /*
-        Player player = new BasicPlayer();
-        Dealer dealer = new BlackjackDealer();
-        Deck deck = new Deck();
-        deck.shuffle();
-        player.takeCard(deck.deal());
-        //player.takeCard(new Card(Card.Suit.CLUBS,Card.Rank.TWO));
-        System.out.println(player.getHandTotal());
-        */
-        
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter Number of hands:");
-        int hands = scan.nextInt();
-        System.out.println("Enter Number of players:");
-        int players = scan.nextInt();
-        basicGame(hands,players);
+        while(true){
+            System.out.println("\n======================= SELECT GAME " 
+                    + " =======================\n"
+                    + "-Basic(b)\n-Intermediate(i)\n-Human(h)\n"
+                    + "-Advanced(a)\n");
+            gameControl(new Scanner(System.in).next());
+        }
     }
-    
+        
 }
+    
+
 

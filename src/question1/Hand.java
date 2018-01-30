@@ -57,13 +57,12 @@ public class Hand implements Serializable, Iterable{
     
     public int getValue(){
         int value = 0;
-        int aces = 0;
         for(Card c: hand){
-            value += c.getRank().getValue();
-            if(c.getRank() == Card.Rank.ACE)
-                aces++;
-            if(aces > 0 && value > 21)
-                value -=10;
+            if(c.getValue() == 11 && value > 10)
+                value ++;
+            else{
+                value += c.getValue();
+            }
         }
         return value;
     }

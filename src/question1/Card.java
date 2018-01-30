@@ -49,6 +49,10 @@ public class Card implements Comparable<Card>, Serializable{
     public Rank getRank() { return rank; }
     public Suit getSuit() { return suit; }
     
+    public int getValue() {
+        return rank.getValue();
+    }
+    
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder(rank.toString().substring(0,1));

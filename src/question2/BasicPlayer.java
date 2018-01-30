@@ -16,7 +16,7 @@ public class BasicPlayer implements Player{
     
     private Hand hand;
     private int balance;
-    private final int BET = 10;
+    private int BET;
     
     public BasicPlayer(){
         balance = 200;
@@ -24,6 +24,7 @@ public class BasicPlayer implements Player{
     }
     
     public Hand newHand(){
+        BET = 10;
         Hand oldHand = hand;
         hand = new Hand();
         return oldHand;
@@ -80,15 +81,15 @@ public class BasicPlayer implements Player{
         return hand;
     };
 
-    public  void viewDealerCard(Card c){
-        
+    public void viewDealerCard(Card c){
+        c.toString();
     };
 
-    public  void viewCards(List<Card> cards){
-        
+    public void viewCards(List<Card> cards){
+        cards.toString();
     };
 
-    public  void newDeck(){
+    public void newDeck(){
         System.out.println("New deck created");
     };
 }

@@ -55,7 +55,7 @@ public class BlackjackDealer implements Dealer{
 
     
     public int play(Player p){
-        pot = 0;
+        
         if(deck.size() < 52/4){
             deck.newDeck();
             deck.shuffle();
@@ -92,8 +92,6 @@ public class BlackjackDealer implements Dealer{
         return h.getValue();
     };
     
-    
-    
     public void settleBets(){
         List<Player> players = table.getPlayers();
         int dealerVal = hand.getValue();
@@ -101,6 +99,7 @@ public class BlackjackDealer implements Dealer{
         String loss,win,draw,blackjack;
         for (Player p:players){
             index = (players.indexOf(p)+1);
+            //string definitions
             loss = "Player " + index + " Loses £" + p.getBet();
             draw = "Player " + index +  " Wins £" + 0;
             win = "Player " + index + " Wins £" + p.getBet()*2;

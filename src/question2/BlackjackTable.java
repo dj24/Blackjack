@@ -37,7 +37,7 @@ public class BlackjackTable {
             playerList.add(new BasicPlayer());
         }
         for(int i = 0; i < games; i++){
-            System.out.println("\n========================= NEW HAND #" + (i+1) + "=========================\n");
+            System.out.println("\n======================= NEW HAND #" + (i+1) + " =======================\n");
             
             BlackjackTable table = new BlackjackTable(playerList);
 

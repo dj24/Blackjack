@@ -39,24 +39,22 @@ public class BlackjackTable {
     static void gameControl(String game){
         System.out.println("Enter number of games to play:");
         int games = new Scanner(System.in).nextInt();
-        for(int i = 0; i < games; i ++){
-            System.out.println("\n======================= NEW HAND #" 
-                + (i+1) + " =======================\n");
-            switch(game){
-                case "b":
-                    //basicGame();
-                    break;
-                case "i":
-                    //intermediateGame();
-                    break;
-                case "h":
-                    humanGame();
-                case "a":
-                    //advancedGame();
-                    break;
-                default:
-                    System.out.println("Enter correct character");
-            }
+        
+        switch(game){
+            case "b":
+                basicGame(games,4);
+                break;
+            case "i":
+                //intermediateGame();
+                break;
+            case "h":
+                humanGame();
+            case "a":
+                //advancedGame();
+                break;
+            default:
+                break;
+            
         }
         
     }
@@ -66,39 +64,25 @@ public class BlackjackTable {
             playerList.add(new BasicPlayer());
         }
         for(int i = 0; i < games; i++){
-            System.out.println("\n======================= NEW HAND #" 
-                    + (i+1) + " =======================\n");
-            
             BlackjackTable table = new BlackjackTable(playerList);
-
             Dealer dealer = new BlackjackDealer(table);
-
             dealer.takeBets();
-
             dealer.dealFirstCards();
-
-            //cycle through each player
             for(Object p: playerList){
                 Player currentPlayer = (Player)p;
                 if(currentPlayer.getBalance() <= 0){
                     playerList.remove(p);
                     break;
                 }
-                System.out.println("\n------------------------- PLAYER " +
-                        (playerList.indexOf(p)+1) + 
-                        " -------------------------\n");
-                System.out.println("Balance: £" + currentPlayer.getBalance());
-                System.out.println("Current bet: £" + currentPlayer.getBet());
-                System.out.println("\nPlayers hand:");
-                System.out.println(currentPlayer.getHand().toString());
-
                 dealer.play(currentPlayer);
-                
-                System.out.println("Hand value: " + 
-                        currentPlayer.getHandTotal());
             }
             dealer.playDealer();
             dealer.settleBets();
+        }
+        for(Object p: playerList){
+            Player currentPlayer = (Player)p;
+            System.out.print("Player " + (playerList.indexOf(p)+1) + " balance: ");
+            System.out.print(currentPlayer.getBalance() + "\n");
         }
     }
     

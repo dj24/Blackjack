@@ -66,7 +66,6 @@ public class BlackjackDealer implements Dealer{
                 checkHit = p.hit();
                 if(checkHit == true){
                     Card newCard = deck.deal();
-                    System.out.println("Dealt " + newCard.toString() + "\n");
                     p.takeCard(newCard);
                 }
             }while(checkHit == true);
@@ -75,16 +74,10 @@ public class BlackjackDealer implements Dealer{
 
   
     public int playDealer(){
-        System.out.println("\n------------------------- DEALER"
-                + " -------------------------\n");
-        System.out.println("Dealer hand: \n" + hand.toString());
         while(hand.getValue() < 17){
             Card newCard = deck.deal();
             hand.add(newCard);
-            System.out.println("HIT");
-            System.out.println("Dealt " + newCard.toString() + "\n");
         }
-        System.out.println("Dealer hand value: " + hand.getValue() + "\n");
         return hand.getValue();
     };
    
@@ -99,37 +92,22 @@ public class BlackjackDealer implements Dealer{
         String loss,win,draw,blackjack;
         for (Player p:players){
             index = (players.indexOf(p)+1);
-            //string definitions
-            loss = "Player " + index + " Loses £" + p.getBet();
-            draw = "Player " + index +  " Wins £" + 0;
-            win = "Player " + index + " Wins £" + p.getBet()*2;
-            blackjack = "Player " + index + " Wins £" + p.getBet()*3;
-            //bust condition
-            if(p.isBust()){
-                System.out.println(loss);
-            }
+            
             //draw condition
-            else if(hand.getSize() == 2 && dealerVal == 21 && p.blackjack() 
+            if(hand.getSize() == 2 && dealerVal == 21 && p.blackjack() 
                     || dealerVal == scoreHand(p.getHand()))
             {
                 p.settleBet(p.getBet());
-                System.out.println(draw);
             }
             //blackjack condition
             else if(p.blackjack()){
                 p.settleBet(((int)p.getBet()*3));
-                System.out.println(blackjack);
             }
             //player has a better score than dealer
             else if( (p.getHandTotal() > dealerVal) || 
                     (!p.isBust() && dealerVal > 21)){
                 p.settleBet(p.getBet()*2);
-                System.out.println(win);
             }
-            //loss condition
-             else{
-                System.out.println(loss);
-            } 
         }
        
     }

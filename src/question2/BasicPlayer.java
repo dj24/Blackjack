@@ -16,7 +16,8 @@ public class BasicPlayer implements Player{
     
     private Hand hand;
     private int balance;
-    private int BET;
+    private final int BET = 10;
+    private Card dealerCard;
     
     public BasicPlayer(){
         balance = 200;
@@ -24,7 +25,6 @@ public class BasicPlayer implements Player{
     }
     
     public Hand newHand(){
-        BET = 10;
         Hand oldHand = hand;
         hand = new Hand();
         return oldHand;
@@ -45,7 +45,6 @@ public class BasicPlayer implements Player{
 
     public boolean hit(){
         if(hand.getValue() < 17){
-            System.out.println("HIT");
             return true;
         }
         return false;
@@ -82,7 +81,7 @@ public class BasicPlayer implements Player{
     };
 
     public void viewDealerCard(Card c){
-        c.toString();
+        dealerCard = c;
     };
 
     public void viewCards(List<Card> cards){

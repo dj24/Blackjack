@@ -67,6 +67,24 @@ public class Hand implements Serializable, Iterable{
         return value;
     }
     
+    public int getSoftValue(){
+        int value = 0;
+        for(Card c: hand){
+            if(c.getValue() == 11)
+                value ++;
+            else{
+                value += c.getValue();
+            }
+        }
+        return value;
+    }
+    public int getHardValue(){
+        int value = 0;
+        for(Card c: hand)
+            value += c.getValue();
+        return value;
+    }
+    
     public Card getCard(int index){
         return hand.get(index);
     }

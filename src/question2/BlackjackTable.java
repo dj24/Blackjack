@@ -86,6 +86,34 @@ public class BlackjackTable {
         }
     }
     
+    static void intermediateGame(int games,int players){
+        List playerList = new ArrayList();
+        for (int j = 0; j< players;j++){
+            playerList.add(new IntermediatePlayer());
+        }
+        for(int i = 0; i < games; i++){
+            BlackjackTable table = new BlackjackTable(playerList);
+            Dealer dealer = new BlackjackDealer(table);
+            dealer.takeBets();
+            dealer.dealFirstCards();
+            for(Object p: playerList){
+                Player currentPlayer = (Player)p;
+                if(currentPlayer.getBalance() <= 0){
+                    playerList.remove(p);
+                    break;
+                }
+                dealer.play(currentPlayer);
+            }
+            dealer.playDealer();
+            dealer.settleBets();
+        }
+        for(Object p: playerList){
+            Player currentPlayer = (Player)p;
+            System.out.print("Player " + (playerList.indexOf(p)+1) + " balance: ");
+            System.out.print(currentPlayer.getBalance() + "\n");
+        }
+    }
+    
     static void humanGame(){
         Player p = new HumanPlayer();
 

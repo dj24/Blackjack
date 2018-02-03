@@ -18,7 +18,6 @@ public class IntermediatePlayer extends BasicPlayer{
     
     public boolean hit(){
         if(hand.getValue() < 17){
-            System.out.println("HIT");
             return true;
         }
         return false;

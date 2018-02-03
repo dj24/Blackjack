@@ -18,6 +18,7 @@ public class BlackjackDealer implements Dealer{
     
     private Deck deck;
     private Hand hand;
+    private Card firstCard;
     public int pot;
     BlackjackTable table;
     
@@ -50,7 +51,10 @@ public class BlackjackDealer implements Dealer{
             p.takeCard(deck.deal());
             p.takeCard(deck.deal());
         }
-        hand.add(deck.deal());
+        firstCard = deck.deal();
+        //System.out.println(firstCard.toString());
+        hand.add(firstCard);
+        
     };
 
     
@@ -61,6 +65,7 @@ public class BlackjackDealer implements Dealer{
             deck.shuffle();
             p.newDeck();
         }
+        p.viewDealerCard(firstCard);
         boolean checkHit;
             do{
                 checkHit = p.hit();
@@ -78,6 +83,7 @@ public class BlackjackDealer implements Dealer{
             Card newCard = deck.deal();
             hand.add(newCard);
         }
+        //System.out.println(hand.toString());
         return hand.getValue();
     };
    

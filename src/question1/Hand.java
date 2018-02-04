@@ -32,6 +32,11 @@ public class Hand implements Serializable, Iterable{
         this.value = 0;
         this.hand = new ArrayList();
     }
+     public Hand(Card c) {
+        this.rankCount = new int[13];
+        this.value = 0;
+        hand.add(c);
+    }
     
     public Hand(Card[] cards){
         this.rankCount = new int[13];
@@ -63,6 +68,26 @@ public class Hand implements Serializable, Iterable{
             else{
                 value += c.getValue();
             }
+        }
+        return value;
+    }
+    
+    public int getSoft(){
+        int value = 0;
+        for(Card c: hand){
+            if(c.getValue() == 11)
+                value ++;
+            else{
+                value += c.getValue();
+            }
+        }
+        return value;
+    }
+    
+     public int getHard(){
+        int value = 0;
+        for(Card c: hand){
+            value += c.getValue();
         }
         return value;
     }

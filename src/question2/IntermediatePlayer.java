@@ -15,11 +15,24 @@ public class IntermediatePlayer extends BasicPlayer{
     private Hand hand;
     private int balance;
     private final int BET = 10;
+    private Card dealerCard;
     
     public boolean hit(){
-        if(hand.getValue() < 17){
-            System.out.println("HIT");
+        int soft = 1;
+        int normal = 1;
+        int dealer = 1;
+        //System.out.println(dealerCard);
+        if(soft == 9 || soft == 10)
+            return false;
+        else if(soft <= 8)
             return true;
+        else if(dealer >= 7){
+            if(normal < 17)
+                return true;
+        }
+        else if(dealer != 11){
+            if(normal < 12)
+                return true;
         }
         return false;
     };

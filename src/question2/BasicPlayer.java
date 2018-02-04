@@ -16,7 +16,7 @@ public class BasicPlayer implements Player{
     
     private Hand hand;
     private int balance;
-    private final int BET = 10;
+    private int BET = 10;
     private Card dealerCard;
     
     public BasicPlayer(){

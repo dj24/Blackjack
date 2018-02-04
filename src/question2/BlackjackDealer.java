@@ -17,6 +17,7 @@ import question1.*;
 public class BlackjackDealer implements Dealer{
     
     private Deck deck;
+    private Card firstCard;
     private Hand hand;
     public int pot;
     BlackjackTable table;
@@ -50,12 +51,14 @@ public class BlackjackDealer implements Dealer{
             p.takeCard(deck.deal());
             p.takeCard(deck.deal());
         }
-        hand.add(deck.deal());
+        firstCard = deck.deal();
+        System.out.println("Dealer Card:" + firstCard.toString());
+        hand.add(firstCard);
     };
 
     
     public int play(Player p){
-        
+        p.viewDealerCard(firstCard);
         if(deck.size() < 52/4){
             deck.newDeck();
             deck.shuffle();

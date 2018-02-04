@@ -18,6 +18,7 @@ public class IntermediatePlayer extends BasicPlayer{
     private Card dealerCard;
     
     public boolean hit(){
+<<<<<<< HEAD
         int soft = 1;
         int normal = 1;
         int dealer = 1;
@@ -25,6 +26,9 @@ public class IntermediatePlayer extends BasicPlayer{
         if(soft == 9 || soft == 10)
             return false;
         else if(soft <= 8)
+=======
+        if(hand.getValue() < 17){
+>>>>>>> b54727b70acc4ea4211d50495ea54dda72dbf702
             return true;
         else if(dealer >= 7){
             if(normal < 17)

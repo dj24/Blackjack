@@ -31,7 +31,6 @@ public class BasicPlayer implements Player{
     };
     
     public int makeBet(){
-        balance -=BET;
         return BET;
     };
     
@@ -45,8 +44,10 @@ public class BasicPlayer implements Player{
 
     public boolean hit(){
         if(hand.getValue() < 17){
+            System.out.println("HIT");
             return true;
         }
+        System.out.println("STICK");
         return false;
     };
 

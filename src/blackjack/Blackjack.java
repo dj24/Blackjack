@@ -19,7 +19,7 @@ public class Blackjack {
         
         Card card = new Card(Card.Suit.HEARTS,Card.Rank.ACE);
         Hand hand = new Hand(card);
-        System.out.println(hand.getSoft());
+        System.out.println(hand.getSoftValue());
     }
     
 }

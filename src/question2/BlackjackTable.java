@@ -69,14 +69,19 @@ public class BlackjackTable {
             dealer.takeBets();
             dealer.dealFirstCards();
             for(Object p: playerList){
+                System.out.println("----- PLAYER " + (playerList.indexOf(p)+1) + "'S TURN -----");
                 Player currentPlayer = (Player)p;
+                System.out.println(currentPlayer.getHand().toString());
                 if(currentPlayer.getBalance() <= 0){
+                    System.out.println("Player out of funds, removed from game\n");
                     playerList.remove(p);
                     break;
                 }
                 dealer.play(currentPlayer);
             }
+            System.out.println("------ DEALER'S TURN ------");
             dealer.playDealer();
+            System.out.println("------- HAND SUMMARY ------");
             dealer.settleBets();
         }
         for(Object p: playerList){
@@ -97,8 +102,10 @@ public class BlackjackTable {
             dealer.takeBets();
             dealer.dealFirstCards();
             for(Object p: playerList){
+                System.out.println("----- PLAYER " + playerList.indexOf(p) + "'S TURN -----");
                 Player currentPlayer = (Player)p;
                 if(currentPlayer.getBalance() <= 0){
+                    System.out.println("Player out of funds, removed from game\n");
                     playerList.remove(p);
                     break;
                 }

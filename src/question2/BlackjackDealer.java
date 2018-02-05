@@ -19,7 +19,6 @@ public class BlackjackDealer implements Dealer{
     private Deck deck;
     private Card firstCard;
     private Hand hand;
-    private Card firstCard;
     public int pot;
     BlackjackTable table;
     
@@ -53,14 +52,13 @@ public class BlackjackDealer implements Dealer{
             p.takeCard(deck.deal());
         }
         firstCard = deck.deal();
-<<<<<<< HEAD
-        System.out.println("Dealer Card:" + firstCard.toString());
+        
         hand.add(firstCard);
-=======
-        //System.out.println(firstCard.toString());
+
+        System.out.println(firstCard.toString());
         hand.add(firstCard);
         
->>>>>>> b54727b70acc4ea4211d50495ea54dda72dbf702
+
     };
 
     
@@ -77,6 +75,7 @@ public class BlackjackDealer implements Dealer{
                 checkHit = p.hit();
                 if(checkHit == true){
                     Card newCard = deck.deal();
+                    System.out.println("Player  was dealt:" + newCard.toString());
                     p.takeCard(newCard);
                 }
             }while(checkHit == true);
@@ -85,10 +84,17 @@ public class BlackjackDealer implements Dealer{
 
   
     public int playDealer(){
+        System.out.println(hand.toString());
         while(hand.getValue() < 17){
+            System.out.println("HIT");
             Card newCard = deck.deal();
+            System.out.println("Dealt " + newCard.toString());
             hand.add(newCard);
         }
+        if(hand.getValue() > 17)
+            System.out.println("STICK");
+        if(hand.getValue() > 21)
+            System.out.println("BUST");
         //System.out.println(hand.toString());
         return hand.getValue();
     };
@@ -102,23 +108,41 @@ public class BlackjackDealer implements Dealer{
         int dealerVal = hand.getValue();
         int index;
         String loss,win,draw,blackjack;
+        
         for (Player p:players){
+            loss = "Lost £" + p.getBet();
+            win = "Won £" + p.getBet();
+            draw = "Draw";
+            blackjack = "Blackjack! Won £" + p.getBet()*2;
             index = (players.indexOf(p)+1);
-            
+            if(dealerVal > 21){
+                //dealer bust
+                System.out.println(win);
+                p.settleBet((int)p.getBet());
+            }
             //draw condition
-            if(hand.getSize() == 2 && dealerVal == 21 && p.blackjack() 
+            else if(hand.getSize() == 2 && dealerVal == 21 && p.blackjack() 
                     || dealerVal == scoreHand(p.getHand()))
             {
-                p.settleBet(p.getBet());
+                p.settleBet(0);
+                System.out.println(draw);
             }
             //blackjack condition
             else if(p.blackjack()){
-                p.settleBet(((int)p.getBet()*3));
+                p.settleBet(((int)p.getBet()*2));
+                System.out.println(blackjack);
             }
             //player has a better score than dealer
             else if( (p.getHandTotal() > dealerVal) || 
                     (!p.isBust() && dealerVal > 21)){
-                p.settleBet(p.getBet()*2);
+                System.out.println(win);
+                p.settleBet(p.getBet());
+            }
+            else
+            {
+                //loss condition
+                p.settleBet(-p.getBet());
+                System.out.println(loss);
             }
         }
        

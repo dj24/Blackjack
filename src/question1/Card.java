@@ -108,5 +108,19 @@ public class Card implements Comparable<Card>, Serializable{
             return c1.compareTo(c2);
         }
     };
+    
+    public static void main(String[] args) {
+        Card card = new Card(Suit.SPADES, Rank.KING);
+        Card card2 = new Card(Suit.SPADES, Rank.QUEEN);
+        System.out.println("New card: " + card.toString());
+        System.out.println("Get previous rank: " + card.getRank().getPrevious());
+        System.out.println("Get card Value: " + card.getValue());
+        System.out.println("Get card suit " + card.getSuit());
+        System.out.println("Sum method passed KING and QUEEN = " 
+                + sum(card,card2));
+        System.out.println("Blackjack check passed the same cards: "
+                + isBlackJack(card,card2));
+    }
+    
 
 }

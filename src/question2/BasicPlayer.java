@@ -47,6 +47,10 @@ public class BasicPlayer implements Player{
             System.out.println("HIT");
             return true;
         }
+        if(hand.getValue() > 21){
+            System.out.println("BUST");
+            return false;
+        }
         System.out.println("STICK");
         return false;
     };

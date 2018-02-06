@@ -46,6 +46,7 @@ public class BlackjackDealer implements Dealer{
     };    
 
     public void dealFirstCards(){
+        hand = new Hand();
         for(Player p : table.getPlayers()){
             p.newHand();
             p.takeCard(deck.deal());

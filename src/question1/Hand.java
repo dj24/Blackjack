@@ -72,7 +72,17 @@ public class Hand implements Serializable, Iterable{
         return value;
     }
     
-
+    public int countRank(Card.Rank givenRank) {
+        int rankTotal = 0;
+   
+        for (Card card : hand) {
+            Card.Rank rank = card.getRank();
+            
+            if(givenRank == rank)
+                rankTotal++;               
+        }     
+        return rankTotal;
+    }
 
     public int getSoftValue(){
 
@@ -230,6 +240,25 @@ public class Hand implements Serializable, Iterable{
         for(Card c : hand)
             out = out.concat(c.toString() + "\n");
         return out;
+    }
+    public static void main(String[] args) {
+        Card c1 = new Card(Card.Suit.CLUBS,Card.Rank.ACE);
+        Card c2 = new Card(Card.Suit.SPADES,Card.Rank.EIGHT);
+        Hand hand = new Hand(c1);
+        System.out.println("Hand with one card: ");
+        System.out.println(hand.toString());
+        System.out.println("Hand with card added: ");
+        hand.add(c2);
+        System.out.println(hand.toString());
+        System.out.println("Hand with card removed: ");
+        hand.remove(c2);
+        //System.out.println("Hand with itself added: ");
+        //hand.add(hand);
+        System.out.println(hand.toString());
+        System.out.println("Count of ACE");
+        System.out.println(hand.countRank(Card.Rank.ACE));
+        //System.out.println("Hand sorted descending: ");
+        //hand.sortDescending();
     }
     
 }

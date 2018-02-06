@@ -32,7 +32,7 @@ public class Deck implements Serializable, Iterable{
                 newDeck.add(new Card(suit,rank));
         }
         deck = newDeck;
-        serialise();
+        
     }
     
     public final void newDeck(){
@@ -42,7 +42,7 @@ public class Deck implements Serializable, Iterable{
                 newDeck.add(new Card(suit,rank));
         }
         deck = newDeck;
-        serialise();
+        
     }
     
     public int size(){
@@ -77,13 +77,12 @@ public class Deck implements Serializable, Iterable{
         try {
             FileOutputStream fos = new FileOutputStream("deck.ser");
             ObjectOutputStream out = new ObjectOutputStream(fos);
-
-            
-
             out.writeObject(deck);
             
             out.close();
             fos.close();
+            
+            System.out.println("Serialized data is saved in deck.ser");
         }
          catch(IOException ex)
         {
@@ -162,6 +161,26 @@ public class Deck implements Serializable, Iterable{
             };
             return it;
         }
+    }
+    public static void main(String[] args) {
+        Deck deck = new Deck();
+        System.out.println("New Deck:");
+        System.out.println(deck.toString());
+        System.out.println("\nShuffled: ");
+        deck.shuffle();
+        //deck.serialise();
+        System.out.println(deck.toString());
+        System.out.println("Top card dealt: " + deck.deal().toString());
+        System.out.println("Deck size :" + deck.size());
+        System.out.println("New Deck: ");
+        deck.newDeck();
+        System.out.println(deck.toString());
+        /*
+        deck.deserialise();
+        
+        System.out.println("Deserialised");
+        deck.toString();
+        */
     }
 }
 

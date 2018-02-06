@@ -63,9 +63,10 @@ public class BlackjackTable {
         for (int j = 0; j< players;j++){
             playerList.add(new BasicPlayer());
         }
+         BlackjackTable table = new BlackjackTable(playerList);
+        Dealer dealer = new BlackjackDealer(table);
         for(int i = 0; i < games; i++){
-            BlackjackTable table = new BlackjackTable(playerList);
-            Dealer dealer = new BlackjackDealer(table);
+           
             dealer.takeBets();
             dealer.dealFirstCards();
             for(Object p: playerList){

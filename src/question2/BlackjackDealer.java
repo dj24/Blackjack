@@ -43,7 +43,8 @@ public class BlackjackDealer implements Dealer{
         for(Player p : players){
             p.makeBet();
         }
-    };    
+    };
+    
 
     public void dealFirstCards(){
         hand = new Hand();
@@ -55,8 +56,6 @@ public class BlackjackDealer implements Dealer{
         firstCard = deck.deal();
         
         hand.add(firstCard);
-
-        System.out.println(firstCard.toString());
         hand.add(firstCard);
         
 
@@ -76,7 +75,7 @@ public class BlackjackDealer implements Dealer{
                 checkHit = p.hit();
                 if(checkHit == true){
                     Card newCard = deck.deal();
-                    System.out.println("Player  was dealt:" + newCard.toString());
+                    System.out.println(newCard.toString());
                     p.takeCard(newCard);
                 }
             }while(checkHit == true);
@@ -92,10 +91,11 @@ public class BlackjackDealer implements Dealer{
             System.out.println("Dealt " + newCard.toString());
             hand.add(newCard);
         }
-        if(hand.getValue() > 17)
-            System.out.println("STICK");
         if(hand.getValue() > 21)
             System.out.println("BUST");
+        else if(hand.getValue() > 17)
+            System.out.println("STICK");
+        
         //System.out.println(hand.toString());
         return hand.getValue();
     };
@@ -134,7 +134,7 @@ public class BlackjackDealer implements Dealer{
                 System.out.println(blackjack);
             }
             //player has a better score than dealer
-            else if( (p.getHandTotal() > dealerVal) || 
+            else if( (p.getHandTotal() > dealerVal && !p.isBust()) || 
                     (!p.isBust() && dealerVal > 21)){
                 System.out.println(win);
                 p.settleBet(p.getBet());

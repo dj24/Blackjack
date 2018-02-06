@@ -6,6 +6,9 @@
 package question2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import question1.*;
@@ -25,32 +28,22 @@ public class BlackjackTable {
         players = new ArrayList();
     }
     
-     public BlackjackTable(Player player){
-        players = new ArrayList();
-        players.add(player);
-    }
-     
-    public BlackjackTable(List<Player> newPlayers){
-        players = new ArrayList();
-        for(Player p : newPlayers){
-            players.add(p);
-        }
-    }
     static void gameControl(String game){
         System.out.println("Enter number of games to play:");
         int games = new Scanner(System.in).nextInt();
         
         switch(game){
             case "b":
-                basicGame(games,4);
+                Game(games,createPlayers("basic"));
                 break;
             case "i":
-                intermediateGame(games,4);
+                Game(games,createPlayers("intermediate"));
                 break;
             case "h":
-                humanGame();
+                humanGame(games);
+                break;
             case "a":
-                //advancedGame();
+                Game(games,createPlayers("advanced"));
                 break;
             default:
                 break;
@@ -58,19 +51,42 @@ public class BlackjackTable {
         }
         
     }
-    static void basicGame(int games,int players){
-        List playerList = new ArrayList();
-        for (int j = 0; j< players;j++){
-            playerList.add(new BasicPlayer());
+    static ArrayList<Player> createPlayers(String game){
+    ArrayList playerList = new ArrayList();
+        
+        switch(game){
+            case "basic":
+                for (int j = 0; j< 4;j++){
+                    playerList.add(new BasicPlayer());
+                }
+                break;
+            case"intermediate":
+                for (int j = 0; j< 4;j++){
+                    playerList.add(new IntermediatePlayer());
+                }
+                break;
+            case "advanced":
+                playerList.add(new BasicPlayer());
+                playerList.add(new IntermediatePlayer());
+                playerList.add(new AdvancedPlayer());
+                break;
         }
-         BlackjackTable table = new BlackjackTable(playerList);
+        return playerList;
+    }
+    
+    static void Game(int games,ArrayList<Player> playerList){
+        BlackjackTable table = new BlackjackTable();
         Dealer dealer = new BlackjackDealer(table);
+        dealer.assignPlayers(playerList);
+        
         for(int i = 0; i < games; i++){
            
             dealer.takeBets();
             dealer.dealFirstCards();
             for(Object p: playerList){
-                System.out.println("----- PLAYER " + (playerList.indexOf(p)+1) + "'S TURN -----");
+                System.out.println("----- PLAYER " + (playerList.indexOf(p)+1)
+                        + "'S ("
+                        + (p.getClass()) + ") TURN -----");
                 Player currentPlayer = (Player)p;
                 System.out.println(currentPlayer.getHand().toString());
                 if(currentPlayer.getBalance() <= 0){
@@ -92,71 +108,39 @@ public class BlackjackTable {
         }
     }
     
-    static void intermediateGame(int games,int players){
-        List playerList = new ArrayList();
-        for (int j = 0; j< players;j++){
-            playerList.add(new IntermediatePlayer());
-        }
+    static void humanGame(int games){
+        Player p = new HumanPlayer();
+        List<Player> playerList = Collections.singletonList(p);
+        
+        BlackjackTable table = new BlackjackTable();
+        Dealer dealer = new BlackjackDealer(table);
+        dealer.assignPlayers(playerList);
+        
         for(int i = 0; i < games; i++){
-            BlackjackTable table = new BlackjackTable(playerList);
-            Dealer dealer = new BlackjackDealer(table);
             dealer.takeBets();
             dealer.dealFirstCards();
-            for(Object p: playerList){
-                System.out.println("----- PLAYER " + playerList.indexOf(p) + "'S TURN -----");
-                Player currentPlayer = (Player)p;
-                if(currentPlayer.getBalance() <= 0){
-                    System.out.println("Player out of funds, removed from game\n");
-                    playerList.remove(p);
-                    break;
-                }
-                dealer.play(currentPlayer);
+
+            if(p.getBalance() <= 0){
+                System.out.println("BUST");
             }
+
+            System.out.println("Balance: £" + p.getBalance());
+            System.out.println("Current bet: £" + p.getBet());
+            System.out.println("Players hand:");
+            System.out.println(p.getHand().toString());
+
+            dealer.play(p);
+            System.out.println("------ DEALER'S TURN ------");
             dealer.playDealer();
+            System.out.println("------- HAND SUMMARY ------");
             dealer.settleBets();
         }
-        for(Object p: playerList){
-            Player currentPlayer = (Player)p;
-            System.out.print("Player " + (playerList.indexOf(p)+1) + " balance: ");
-            System.out.print(currentPlayer.getBalance() + "\n");
-        }
-    }
-    
-    static void humanGame(){
-        Player p = new HumanPlayer();
-
-        BlackjackTable table = new BlackjackTable(p);
-
-        Dealer dealer = new BlackjackDealer(table);
-
-        dealer.takeBets();
-
-        dealer.dealFirstCards();
-
-        if(p.getBalance() <= 0){
-            System.out.println("bust");
-        }
-
-        System.out.println("Balance: £" + p.getBalance());
-        System.out.println("Current bet: £" + p.getBet());
-        System.out.println("\nPlayers hand:");
-        System.out.println(p.getHand().toString());
-
-        dealer.play(p);
-
-        System.out.println("Hand value: " + p.getHandTotal());
-        dealer.playDealer();
-        dealer.settleBets();
     }
     
     public void addPlayers(List<Player> newPlayers){
         for(Player p : newPlayers){
             players.add(p);
         }
-    }
-    
-    public void addPlayers(Player p){
-        players.add(p);
     }
     
     public List<Player> getPlayers(){

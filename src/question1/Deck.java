@@ -23,15 +23,13 @@ import java.util.List;
  */
 public class Deck implements Serializable, Iterable{
     static final long serialVersionUID = 112;
-    private ArrayList<Card> deck;
+    private ArrayList<Card> deck = new ArrayList();;
     
     public Deck(){
-        ArrayList<Card> newDeck= new ArrayList<>();
         for(Card.Suit suit : Card.Suit.values()){
             for(Card.Rank rank : Card.Rank.values())
-                newDeck.add(new Card(suit,rank));
+                deck.add(new Card(suit,rank));
         }
-        deck = newDeck;
         
     }
     
@@ -58,10 +56,7 @@ public class Deck implements Serializable, Iterable{
     }
     
     public Card deal(){
-        Card dealt = deck.get(0);
-        deck.remove(0);
-        //System.out.println(dealt.toString());
-        return dealt;
+        return deck.remove(0);
     }
     
     public void shuffle(){

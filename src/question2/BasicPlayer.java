@@ -16,14 +16,16 @@ public class BasicPlayer implements Player{
     
     private Hand hand;
     private int balance;
-    private int BET = 10;
+    private int BET;
     private Card dealerCard;
+    private int cardCount;
     
     public BasicPlayer(){
         balance = 200;
         hand = new Hand();
     }
     
+    @Override
     public Hand newHand(){
         Hand oldHand = hand;
         hand = new Hand();
@@ -31,8 +33,12 @@ public class BasicPlayer implements Player{
     };
     
     public int makeBet(){
-        return BET;
+        setBet(10);
+        return getBet();
     };
+    public void setBet(int bet){
+        BET = bet;
+    }
     
     public int getBet(){
         return BET;
@@ -84,13 +90,27 @@ public class BasicPlayer implements Player{
     public Hand getHand(){
         return hand;
     };
-
+    public int getCardCount(){
+        return cardCount;
+    }
     public void viewDealerCard(Card c){
         dealerCard = c;
     };
+    public Card getDealerCard(){
+        return dealerCard;
+    }
 
-    public void viewCards(List<Card> cards){
-        cards.toString();
+    public void viewCards(List<Card> cards){       
+        for(Card c : cards){
+            int value;
+            value = c.getValue();
+            if(value<=6){
+                cardCount++;
+            }
+            else if(value>=10){
+                cardCount--;
+            }
+        }
     };
 
     public void newDeck(){

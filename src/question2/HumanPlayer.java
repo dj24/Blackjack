@@ -14,24 +14,15 @@ import question1.*;
  */
 public class HumanPlayer extends BasicPlayer{
     
-    private Hand hand;
-    private int balance;
-    private int BET;
     
-    HumanPlayer(){
-        balance = 200;
-        hand = new Hand();
-        this.BET = 50;
-    }
+
     
-    public Hand newHand(){
+    public int makeBet(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter bet amount:");
         int input = scan.nextInt();
-        BET += input;
-        Hand oldHand = hand;
-        hand = new Hand();
-        return oldHand;
+        setBet(getBet()+input);
+        return getBet();
     };
     
     public boolean hit(){

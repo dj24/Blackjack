@@ -110,10 +110,12 @@ public class BasicPlayer implements Player{
             else if(value>=10){
                 cardCount--;
             }
+            System.out.println("CARD COUNT: " + cardCount);
         }
     };
 
     public void newDeck(){
+        cardCount = 0;
         System.out.println("New deck created");
     };
 }

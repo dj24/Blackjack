@@ -19,9 +19,14 @@ public class HumanPlayer extends BasicPlayer{
     
     public int makeBet(){
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter bet amount:");
-        int input = scan.nextInt();
-        setBet(getBet()+input);
+        int input;
+        do{
+            System.out.println("Enter bet amount:");
+            input = scan.nextInt();
+            if(input > getBalance())
+                System.out.println("Insufficient funds");
+        }while(input > getBalance());
+        setBet(input);
         return getBet();
     };
     

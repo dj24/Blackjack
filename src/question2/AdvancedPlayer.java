@@ -15,13 +15,15 @@ public class AdvancedPlayer extends IntermediatePlayer {
     @Override
     public int makeBet(){
         int cardCount = getCardCount();
+        System.out.println("CARD COUNT = " + cardCount);
         if(cardCount >0){
+            
             setBet(cardCount *10);
         }
         else{
             setBet(10);
         }
-        setBet(0);
+        System.out.println("BET: " + getBet());
         return getBet();
     }
 }

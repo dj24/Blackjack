@@ -95,8 +95,6 @@ public class BlackjackDealer implements Dealer{
             System.out.println("BUST");
         else if(hand.getValue() > 17)
             System.out.println("STICK");
-        
-        //System.out.println(hand.toString());
         return hand.getValue();
     };
    
